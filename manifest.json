@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "version": "0.8.0.1",
+  "name": "Twittpane - Twitter Client",
+  "description": "Twitter client extension for Google chrome",
+  "content_security_policy": "script-src 'self' https://www.google.com/jsapi; object-src 'self'",
+  "background": {
+    "page": "background.html"
+  },
+  "browser_action": {
+    "default_icon": "images/icon48.png",
+    "default_title": "Twittpane"
+  },
+  "content_scripts": [
+    {
+    "matches": ["http://api.twitter.com/oauth/authorize", "https://api.twitter.com/oauth/authorize" ],
+    "js":["scripts/plugin/jquery.min.js","scripts/oauth_authorizer.js"]
+    }
+  ],
+   "icons": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+     "128": "images/icon128.png"
+   },
+  "permissions": [ "tabs", "http://*/*", "https://*/*" ]
+}

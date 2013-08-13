@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="ja" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="imagetoolbar" content="no" />
+  <title>Twittpane</title>
+  <meta http-equiv="refresh" content="1800">
+  <meta http-equiv="pragma" content="no-cache">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="css/twitter.css"/>
+</head>
+<body>
+
+  <div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <ul class="nav">
+          <li>
+            <a href="https://twitter.com/" target="_blank"><img id="home_icon" src="./images/icon48.png" width="20" height="20"></a>
+          </li>
+          <li class="active">
+            <a href="https://twitter.com/" target="_blank">Home</a>
+          </li>
+        </ul>
+        <ul class="nav pull-right">
+          <li>
+            <a href="#"><span id="my_rate_limit">#</span></a>
+          </li>
+          <li><a href="https://chrome.google.com/webstore/detail/ajklfbgfihdpbbbnjpbhpjlmefloailb" target="_blank">about</a>
+          </li>
+          <li><a href="#" id="logout">logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid"> 
+    <div class="row-fluid">
+      <!-- #col0 -->
+      <div class="span4" id="col0">
+        <div class="head" id="head_home_timeline">
+          <div class="row-fluid">
+            <div class="span1" id="open_tweetarea_button">
+              <a href="#"><img id="open_tweetarea" src="./images/bird_32_blue.png" width="20" height="20" title="Tweet"></a>
+            </div> <!-- #open_tweet_area_button -->
+          </div> <!-- .row-fluid -->
+
+        </div> <!-- .head -->
+        <div class="home_pane" id="home_timeline"></div>
+      </div>
+      <!-- #col0 -->
+
+      <!-- #col1 -->
+      <div class="span4" id="col1">
+        <div class="head" id="head_tweets1" word="">
+
+          <ul class="nav nav-pills" nowrap>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  #
+                  <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu"></ul>
+            </li>
+            <form class="navbar-search" onsubmit="return false">
+              <input type="text" class="search-query" placeholder="Search">
+            </form>
+          </ul>
+
+        </div> <!-- .head -->
+        <div class="pane" id="tweets1" word="#" pane_id="1"></div>
+      </div> <!-- #col1 -->
+
+      <!-- #col2 -->
+      <div class="span4" id="col2">
+        <div class="head" id="head_tweets2" word="">
+
+          <ul class="nav nav-pills">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  #
+                  <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+              </ul>
+            </li>
+            <form class="navbar-search" onsubmit="return false">
+              <input type="text" class="search-query" placeholder="Search">
+            </form>
+          </ul>
+
+        </div> <!-- .head -->
+      <div class="pane" id="tweets2" word="#" pane_id="2"></div>
+      </div> <!-- #col2 -->
+
+    </div> <!-- .container-fluid -->
+
+  <div id="footer"></div>
+
+<script src="scripts/plugin/jquery.min.js"></script>
+<script src="scripts/lib.js"></script>
+<script src="scripts/plugin/bootstrap/js/bootstrap.min.js"></script>
+<script src="scripts/plugin/jquery.bottom-1.0.js"></script>
+<script src="scripts/plugin/jquery.thumbs.js"></script>
+<script src="scripts/plugin/bignumber.js"></script>
+<script src="scripts/twittpane.js"></script>
+<script src="scripts/background.js"></script>
+<script src="scripts/jsoauth.js"></script>
+<script src="scripts/twitter.js"></script>
+
+</body> 
+</html>
