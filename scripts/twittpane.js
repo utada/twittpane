@@ -1,3 +1,4 @@
+
 var TWITT = {};
 
 TWITT.extension_id = {
@@ -975,6 +976,7 @@ TWITT.search_pane = function(pane_id, ary_search_word) {
 
   // bootstrap-dropdown.js 有効化
   $('#head_tweets'+pane_id+' > ul > li.dropdown > a.dropdown-toggle').dropdown();
+
   // change search event
   this.dropdown_click(pane_id);
 
@@ -1125,15 +1127,18 @@ TWITT.dropdown_click = function(pane_id) {
     // click del mark in dropdown menu
     if (event.target.nodeName === "SPAN") {
       _this.dropdown_destroy(this, pane_id);
-      return false; // falseを返すとdropdown_menuが閉じない
+      return false; // to prevent dropdown_menu close
     }
 
-    // current search word
+    // previous search word
     var old_word = $('#head_tweets'+pane_id).attr('word');
-    //console.log(old_word);
-    //console.log(_this.conf.lists_data[pane_id]);
+    /*
+    console.log(old_word);
+    console.log(pane_id);
+    console.log(_this.conf.search_data);
+    */
 
-    // stop active search
+    // disable search timer
     if (_this.conf.search_data[pane_id] !== undefined) {
       clearTimeout(_this.conf.search_data[pane_id].timer);
     }
@@ -1141,15 +1146,13 @@ TWITT.dropdown_click = function(pane_id) {
       clearTimeout(_this.conf.lists_data[pane_id].timer);
     }
 
-    //console.log(_this.conf.lists_data[pane_id]);
-
     $('#tweets'+pane_id+' .tweet').remove();
 
     // new search word
     var new_word = $(this).attr('word');
     //console.log(new_word);
 
-    // remove old search content
+    // remove contents of previous search
     $(this).remove();
 
     _this.change_search_word(pane_id, new_word);
@@ -1222,14 +1225,17 @@ TWITT.dropdown_destroy = function(obj, pane_id) {
 TWITT.change_search_word = function(pane_id, word) {
   $('#head_searching_word'+pane_id).html(word.linkword());
   var ary_words = [];
-  var word = encodeURIComponent(word);
+
   for (var i = 0; i < JSON.parse(localStorage.words).length; i++) {
     ary_words.push(JSON.parse(localStorage.words)[i]);
   }
+
   this.conf.search_data[pane_id] = {
     "word": word,
     "since_id": 0
   };
+  console.log(this.conf.search_data);
+
   ary_words[pane_id-1] = word;
   localStorage.words = JSON.stringify(ary_words);
   this.search_tweets(pane_id, word);
@@ -1274,20 +1280,23 @@ TWITT.search_tweets = function(pane_id,word) {
   var searchTimeout = {};
   //decodeSearchWord = decodeURIComponent(word);
   //console.log(TWITT.conf.search_data[pane_id]);
+
   if (TWITT.conf.search_data[pane_id] === undefined) {
     TWITT.conf.search_data[pane_id] = {
-      "since_id": 0,
+      //"since_id": 0,
       "word": word
     };
   }
+
   var since_id = TWITT.conf.search_data[pane_id].since_id;
-  //this.search(word, TWITT.conf.search_timeline_get_count, since_id, function(json) {
+
   this.jsoauth.searchTweets(word, TWITT.conf.search_timeline_get_count, since_id, function(data) {
     //console.log(data);
     var json = JSON.parse(data.text)
-    //console.log(json);
+    console.log(json);
+
+    // success
     if (undefined === json.status) {
-      // 検索成功時
       //console.log(json);
       if (TWITT.conf.search_data[pane_id] === undefined) {
         TWITT.conf.search_data[pane_id] = {
@@ -1302,8 +1311,8 @@ TWITT.search_tweets = function(pane_id,word) {
       _this.build_search_tweet_divs(json.statuses, pane_id, true);
     }
 
+    // search error
     if (undefined !== json.status) {
-      // 検索失敗時
       //console.log(json);
       $('#errmsg'+pane_id).hide(function() { $(this).remove(); });
       var errdiv = '<div class="tweet" id="errmsg'+pane_id+'"><span class="errmsg">Server status:'+json.status+' '+json.statusText+'</span></div>';
@@ -1316,7 +1325,9 @@ TWITT.search_tweets = function(pane_id,word) {
   this.conf.search_data[pane_id].timer = setTimeout(function() {
     _this.search_tweets(pane_id,word);
   }, 70000);
+
   return false;
+
 };
 
 /*
