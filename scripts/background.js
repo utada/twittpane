@@ -57,7 +57,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   if (request.msg === "get_conf") {
     sendResponse(TWITT.conf);
   }
-  // when tweet from popup apply new tweet to home_timeline area 
+  // apply new tweet in home_timeline when tweet via popup 
   if (request.msg === "send_tweet") {
     $(request.body).prependTo($('div#home_timeline')).fadeIn("slow",function(){
       $(this).css('background','#223'); // unread color
