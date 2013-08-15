@@ -1,14 +1,5 @@
 
 chrome.browserAction.onClicked.addListener(function() {
-  // remove old version data
-  /*
-  if (localStorage.access_token) {
-    localStorage.removeItem("access_token");
-  }
-  if (localStorage.access_secret) {
-    localStorage.removeItem("access_secret");
-  }
-  */
 
   if (localStorage.oauth_token && localStorage.oauth_token_secret) {
     var oauth_token = localStorage.oauth_token;
@@ -19,6 +10,7 @@ chrome.browserAction.onClicked.addListener(function() {
     TWITT.initTab();
     return false;
   }
+
   JSOAUTH.oauth = OAuth(JSOAUTH.options);
   JSOAUTH.getRequestToken(function() {
     JSOAUTH.twitterAuthorize();

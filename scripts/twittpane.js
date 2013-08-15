@@ -12,10 +12,12 @@ TWITT.extension_id = {
 TWITT.base_url = 'https://api.twitter.com/1.1/';
 
 TWITT.conf = {
+  /*
   extension_id: {
     pub: 'ajklfbgfihdpbbbnjpbhpjlmefloailb',
     dev: 'hbdbbhppbpaldkphokedkebidhnalbbk'
   },
+  */
   top_page: 'twitter.html',
   extension_url: 'chrome-extension://' + TWITT.extension_id.pub +
                  '/twitter.html',
@@ -96,6 +98,7 @@ TWITT.conf = {
 
 TWITT.initTab = function() {
   var _this = this;
+  console.log(this);
   chrome.windows.getAll({'populate': true}, function(windows) {
     var existing_tab = null;
     for (var i in windows) {
@@ -104,7 +107,7 @@ TWITT.initTab = function() {
         for (var j in tabs) {
           if (tabs.hasOwnProperty(j)) {
             var tab = tabs[j];
-            //console.log(tab.url);
+            console.log(tab.url);
             if (tab.url === TWITT.conf.extension_url ||
                 tab.url === TWITT.conf.extension_url2 ||
                 tab.url === TWITT.conf.extension_url3 ||
