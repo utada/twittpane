@@ -417,9 +417,9 @@ TWITT.disp_home = function(div) {
     //console.log('this elem already displayed. skipping.. ');
     return true; // continue
   }
+
   $(div).prependTo($('#home_timeline')).fadeIn('slow', function() {
     var __this = this;
-    //console.log(this);
     if (0 < $(this).find('span.retweet_pretext').length) {
       // 公式RTの場合の処理
       var reply_data = {
@@ -447,6 +447,7 @@ TWITT.disp_home = function(div) {
         $(__this).css('background', '#660033');
       }
     });
+
     _this.clickShowButton(this, 'home_timeline');
   });
 };
@@ -1499,7 +1500,7 @@ TWITT.generate_others_div = function(json) {
 };
 
 TWITT.generate_rt_div = function(json, myself) {
-  // console.log(json);
+  console.log(json);
   if (json === undefined) {
     return;
   }
@@ -1526,7 +1527,8 @@ TWITT.generate_rt_div = function(json, myself) {
   text = this.expand_urls(json.entities, json.retweeted_status.text);
 
   // thumbnail image
-  var thumbnail_html = this.thumbnail_image(json.entities);
+  //var thumbnail_html = this.thumbnail_image(json.entities);
+  var thumbnail_html = this.thumbnail_image(json.retweeted_status.entities);
 
   text = this.omiturl(text.linkify().linkuser().linktag());
 
@@ -1691,12 +1693,15 @@ TWITT.expand_urls = function(entities, text) {
 
 TWITT.thumbnail_image = function(entities) {
   var html = '';
+
+  /*
   $(entities.urls).each(function() {
     $(this).thumbs();
     if (this.thumbnail_url) {
       html += '<a href="' + this.expanded_url + '" target="_blank"><img class="pic_thumb" src="' + this.thumbnail_url + '" width="25%"></img></a>';
     }
   });
+ */
 
   // pic.twitter
   $(entities.media).each(function() {
@@ -1705,6 +1710,7 @@ TWITT.thumbnail_image = function(entities) {
       html += '<a href="' + this.expanded_url + '" target="_blank"><img class="pic_thumb" src="' + this.thumbnail_url + '" width="25%"></img></a>';
     }
   });
+
   return html;
 };
 

@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "0.8.0.3",
+  "version": "0.8.0.4",
   "name": "Twittpane - Twitter Client",
   "description": "Twitter client extension for Google chrome",
   "content_security_policy": "script-src 'self' https://www.google.com/jsapi; object-src 'self'",
