@@ -1694,14 +1694,12 @@ TWITT.expand_urls = function(entities, text) {
 TWITT.thumbnail_image = function(entities) {
   var html = '';
 
-  /*
   $(entities.urls).each(function() {
     $(this).thumbs();
     if (this.thumbnail_url) {
       html += '<a href="' + this.expanded_url + '" target="_blank"><img class="pic_thumb" src="' + this.thumbnail_url + '" width="25%"></img></a>';
     }
   });
- */
 
   // pic.twitter
   $(entities.media).each(function() {
