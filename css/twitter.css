@@ -67,6 +67,11 @@ input, textarea, select, .uneditable-input {
 .container-fluid .text-container {
   margin-left: 65px;
 }
+.text_container span.text {
+  font-size: 14px;
+  color: #ccc;
+  white-space: pre-wrap;
+}
 .pic_thumb {
   margin: 3px;
 	background: #ccc;
@@ -139,15 +144,18 @@ input, textarea, select, .uneditable-input {
 .tweet span.errmsg{
   color: #FF0000;
 }
+/*
 .tweet div.source {
   margin:0;
-  /* padding:0 0 0 70px; */
   color: #FFF;
   font-size: 11px;
 }
+*/
+/*
 .tweet div.source a {
   color: #808080;
 }
+*/
 .reply_button_container {
   margin: 0px;
   padding: 0;

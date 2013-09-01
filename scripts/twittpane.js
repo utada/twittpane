@@ -12,12 +12,6 @@ TWITT.extension_id = {
 TWITT.base_url = 'https://api.twitter.com/1.1/';
 
 TWITT.conf = {
-  /*
-  extension_id: {
-    pub: 'ajklfbgfihdpbbbnjpbhpjlmefloailb',
-    dev: 'hbdbbhppbpaldkphokedkebidhnalbbk'
-  },
-  */
   top_page: 'twitter.html',
   extension_url: 'chrome-extension://' + TWITT.extension_id.pub +
                  '/twitter.html',
@@ -360,22 +354,21 @@ TWITT.init_timeline = function() {
       var json = JSON.parse(data.text);
       $(json).reverse().each(function(i) {
         //console.log(this);
-        var div = '';
         if (this.user.screen_name === response.screen_name) {
           if (this.retweeted_status === undefined) {
             // 自分のツィート
-            div = _this.generate_single_div(this);
+            var div = _this.generate_single_div(this);
           } else {
             // 自分のRT
-            div = _this.generate_rt_div(this, true);
+            var div = _this.generate_rt_div(this, true);
           }
         } else {
           if (this.retweeted_status === undefined) {
             // 他人のツィート
-            div = _this.generate_others_div(this);
+            var div = _this.generate_others_div(this);
           } else {
             // 他人のRT
-            div = _this.generate_rt_div(this, false);
+            var div = _this.generate_rt_div(this, false);
           }
         }
         _this.disp_home(div);
@@ -407,13 +400,14 @@ TWITT.init_timeline = function() {
 };
 
 /*
- * home_timelineの要素の表示
+ * display home_timeline divs
  */
 TWITT.disp_home = function(div) {
   var id_str = $(div).attr('tweet_id');
   var _this = this;
+  //console.log($(div));
   if (_this.check_already_displayed(id_str)) {
-    // 既に表示済みのtweetはskipする。
+    // skip already displayed elements
     //console.log('this elem already displayed. skipping.. ');
     return true; // continue
   }
@@ -421,7 +415,7 @@ TWITT.disp_home = function(div) {
   $(div).prependTo($('#home_timeline')).fadeIn('slow', function() {
     var __this = this;
     if (0 < $(this).find('span.retweet_pretext').length) {
-      // 公式RTの場合の処理
+      // if elem is RTs
       var reply_data = {
         'icon': $(this).find('img.profile_image').val('src'),
         'text': $(this).find('.text')[0].innerText,
@@ -432,7 +426,7 @@ TWITT.disp_home = function(div) {
       };
       //console.log(reply_data);
     } else {
-      // 普通のツィート
+      // if normal tweets
       var reply_data = {
         'icon': $(this).find('img.profile_image').attr('src'),
         'text': $(this).find('.text')[0].innerText,
@@ -1361,7 +1355,10 @@ TWITT.list_timeline = function(params, pane_id) {
   });
 };
 
-// 自分のTweet
+/*
+ * my Tweet
+ *
+ */
 TWITT.generate_single_div = function(json) {
   if (json === undefined) {
     return;
@@ -1417,9 +1414,12 @@ TWITT.generate_single_div = function(json) {
   return s;
 };
 
-// other's tweet
+/*
+ * other's tweet
+ *
+ */
 TWITT.generate_others_div = function(json) {
-  // console.log(json);
+  console.log(json);
   if (json === undefined) {
     return;
   }
