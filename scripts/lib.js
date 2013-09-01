@@ -122,7 +122,7 @@ String.prototype.linktag = function () {
 String.prototype.linktag = function () {
   return this.replace(/#([\w一-龠ぁ-んァ-ヴー]+)/g, function (t) {
     var tag = t.replace("#", "%23");
-    return '<a target="_blank" href="http://search.twitter.com/search?q='+tag+'" class="linktag">'+t+'</a>';
+    return '<a target="_blank" href="http://twitter.com/search?q='+tag+'" class="linktag">'+t+'</a>';
   });
 };
 
